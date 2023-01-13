@@ -31,7 +31,7 @@
 
 .login-form button {
     margin-top: 1rem;
-    background: limegreen;
+    background: #26ef26;
     color: #fff;
     border: none;
     padding: 0.5rem 1rem;
@@ -51,4 +51,5 @@
     background-color: #3d4349;
     color: #fff;
     text-align: center;
+    outline: none;
 }
