@@ -2,3 +2,92 @@ input[type=number] {
     -webkit-appearance: none;
     -moz-appearance: textfield;
 }
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: limegreen;
+}
+
+.account-generator-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+}
+
+.account-generator-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 200px;
+}
+
+.account-generator-form input {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: #3d4349;
+    color: #fff;
+    text-align: center;
+    outline: none;
+}
+
+.account-generator-form button {
+    margin-top: 1rem;
+    background: #26ef26;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.account-generator-form select {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: #3d4349;
+    color: #fff;
+    text-align: center;
+    outline: none;
+    width: 12.5rem;
+}
+
+.generated-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    vertical-align: center;
+    height: 80vh;
+}
+
+.generated-wrapper button {
+    margin-top: 1rem;
+    background: #26ef26;
+    color: black;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.generated-wrapper h4 {
+    color: #26ef26;
+}

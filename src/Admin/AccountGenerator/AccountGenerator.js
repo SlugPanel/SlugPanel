@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {json} from "react-router-dom";
 import './AccountGenerator.css'
 
-async function generateRegistrationKey(formData) {
+/*async function generateRegistrationKey(formData) {
     return fetch('http://localhost:8080/generate', {
         method: 'POST',
         headers: {
@@ -11,7 +11,7 @@ async function generateRegistrationKey(formData) {
         body: JSON.stringify(formData)
     })
         .then (data => data.json())
-}
+}*/
 
 export default function AccountGenerator() {
     const [user, setUser] = useState();
@@ -19,6 +19,22 @@ export default function AccountGenerator() {
     const [discord_id, setDiscordId] = useState();
     const [rank, setRank] = useState();
     const [authentication_level, setAuthenticationLevel] = useState("Administration");
+    const [registration_key, setRegistrationKey] = useState();
+    const [generated, setGenerated] = useState()
+
+
+    const generateRegistrationKey = async (formData) => {
+        const response = await fetch('http://localhost:8080/generate', {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify(formData)
+        }).then((res) => res.json());
+        setRegistrationKey(response)
+        setGenerated(true)
+    }
+
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -28,13 +44,16 @@ export default function AccountGenerator() {
             rank,
             authentication_level
         });
+        setRegistrationKey(registrationKey)
     }
 
-    let generated = false;
+    const reset = async function() {
+        setGenerated(false)
+    }
 
     if (!generated) {
         return (
-            <div>
+            <div className={"account-generator-form-wrapper"}>
                 <h1>Account Generator</h1>
                 <div className={"account-generator-form"}>
                     <form onSubmit={handleSubmit}>
@@ -53,10 +72,13 @@ export default function AccountGenerator() {
         );
     } else {
         return (
-            <div>
+            <div className={'generated-wrapper'}>
                 <h1>Account Generator</h1>
                 <div className={'key-output'}>
-                    <h4>Registration key: <div className={'key'}>{}</div></h4>
+                    <h4>Registration key: <div className={'key'}>{registration_key["regKey"]}</div></h4>
+                    <form onSubmit={reset}>
+                        <button>Register new account</button>
+                    </form>
                 </div>
             </div>
         );

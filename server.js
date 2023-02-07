@@ -5,44 +5,25 @@ const { MongoClient, ServerApiVersion, Collection, Int32} = require('mongodb')
 const {json} = require("express");
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const userSchema = require('./src/SlugSchemas/SlugSchemas')
+let CryptoJS = require('crypto-js')
 
-mongoose.connect("mongodb+srv://usar:poopusar@slug-panel.b8jgn4x.mongodb.net/UsarData?retryWrites=true&w=majority")
+const user_db = mongoose.createConnection("mongodb+srv://usar:i0dZ59pvJ5aFM190@slug-panel.b8jgn4x.mongodb.net/UsarData?retryWrites=true&w=majority")
 
-const userSchema = new mongoose.Schema({
-    username: String,
-    discord_id: Number,
-    rank: String,
-    regKey: String,
-    awards: Array,
-    isAdmin: Boolean,
-    admin_level: Number,
-    authentication_level: String,
-    division: [{
-        div_name: String,
-        div_id: Number,
-        join_date: Date,
-        position: String,
-        is_staff: Boolean,
-    }],
-    court_data: [{
-        court_cases: Array,
-        guilty_verdicts: Number,
-        not_guilty_verdicts: Number,
-        lesser_punishments: Number,
-    }],
-    administration_data: [{
-        panel_join: Date,
-        admin_punishments: Number,
-        blacklisted: Boolean,
-        flags: Array,
-    }]
-}, {collection: "userData"})
 
-const User = mongoose.model('User', userSchema)
+const User = user_db.model('User', userSchema)
 
 
 function generateUserRegistrationKey(username, discord_id, rank, authentication_level) {
-    return "test123"
+    let key = username + '/' + discord_id.toString() + '/' + rank + '/' + authentication_level
+    const ciphertext = CryptoJS.AES.encrypt(key, 'poopusar').toString()
+    return ciphertext
+}
+
+function decryptUserRegistrationKey(key) {
+    const bytes = CryptoJS.AES.decrypt(key, 'poopusar')
+    const originalText = bytes.toString(CryptoJS.enc.Utf8)
+    return originalText
 }
 
 app.use(cors());
@@ -55,7 +36,7 @@ app.use('/login', (req, res) => {
 
 app.post('/generate', bodyParser.json(), async function (req, res) {
     let username = req.body.username
-    let discord_id = req.body.discord_id.toInt()
+    let discord_id = req.body.discord_id
     let rank = req.body.rank
     let authentication_level = req.body.authentication_level
     let exists = await User.exists({discord_id: discord_id})
@@ -65,32 +46,12 @@ app.post('/generate', bodyParser.json(), async function (req, res) {
         discord_id: discord_id,
         rank: rank,
         regKey: regKey,
-        awards: ["National Defense Service Medal"],
         authentication_level: authentication_level,
-        division: [{
-            div_name: "divisionless",
-            div_id: 0,
-            join_date: new Date(),
-            position: "None",
-            is_staff: false
-        }],
-        court_data: [{
-            court_cases: [],
-            guilty_verdicts: 0,
-            not_guilty_verdicts: 0,
-            lesser_punishments: 0
-        }],
-        administration_data: [{
-            panel_join: new Date(),
-            admin_punishments: 0,
-            blacklisted: false,
-            flags: []
-        }]
-
     })
     if (!exists) {
         newUser.save()
-            .then(r => console.log("User added to db"))
+            .then(r => console.log("User " + username + " added to db"))
+        res.send({regKey: regKey})
     }
 })
 
