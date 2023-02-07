@@ -4,6 +4,7 @@ import Dashboard from "./Dashboard/Dashboard";
 import Login from "./Login/Login";
 import useToken from "./useToken";
 import './App.css'
+import AccountGenerator from "./Admin/AccountGenerator/AccountGenerator";
 
 function App() {
     const {token, setToken} = useToken();
@@ -18,6 +19,7 @@ function App() {
               <Routes>
                   <Route exact path="/dashboard" element={<Dashboard />} />
                   <Route exact path="/" element={<Dashboard />} />
+                  <Route exact path="/generate" element={<AccountGenerator />} />
               </Routes>
           </Router>
       </div>

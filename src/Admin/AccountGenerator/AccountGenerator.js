@@ -1,32 +1,34 @@
 import React, {useState} from 'react';
+import {json} from "react-router-dom";
+import './AccountGenerator.css'
+
+async function generateRegistrationKey(formData) {
+    return fetch('http://localhost:8080/generate', {
+        method: 'POST',
+        headers: {
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+        .then (data => data.json())
+}
 
 export default function AccountGenerator() {
     const [user, setUser] = useState();
+    const [username, setUsername] = useState();
+    const [discord_id, setDiscordId] = useState();
+    const [rank, setRank] = useState();
+    const [authentication_level, setAuthenticationLevel] = useState("Administration");
 
-    let userObject = {
-        username: 'user',
-        discord_id: '1234567890',
-        rank: "Private",
-        awards: [],
-        is_admin: false,
-        admin_level: 0,
-        division: {
-            div_name: "1st Infantry Division",
-            div_id: 1,
-            position: "Rifleman",
-            is_staff: false,
-        },
-        court_cases: {
-            case_id: 1,
-            case_name: "user v. United States Army",
-            case_description: "user was caught stealing a candy bar from the PX.",
-            case_status: "Resolved",
-            case_verdict: "Guilty",
-            case_sentence: "1 month in the brig",
-        }
+    const handleSubmit = async e => {
+        e.preventDefault()
+        const registrationKey = generateRegistrationKey({
+            username,
+            discord_id,
+            rank,
+            authentication_level
+        });
     }
-
-    this.state.users = userObject;
 
     let generated = false;
 
@@ -35,11 +37,16 @@ export default function AccountGenerator() {
             <div>
                 <h1>Account Generator</h1>
                 <div className={"account-generator-form"}>
-                    <form>
-                        <input type={"text"} placeholder={"Username"}/>
-                        <input type={"text"} placeholder={"Discord ID"}/>
-                        <input type={"text"} placeholder={"Rank"}/>
-
+                    <form onSubmit={handleSubmit}>
+                        <input type={"text"} placeholder={"Username"} onChange={e => setUsername(e.target.value)}/>
+                        <input type={"number"} placeholder={"Discord ID"} onChange={e => setDiscordId(e.target.value)}/>
+                        <input type={"text"} placeholder={"Rank"} onChange={e => setRank(e.target.value)}/>
+                        <select onChange={e => setAuthenticationLevel(e.target.value)}>
+                            <option value={"Administration"}>Administration</option>
+                            <option value={"Headquarters"}>Headquarters</option>
+                            <option value={"Division Staff"}>Division Staff</option>
+                        </select>
+                        <button type={"submit"}>Generate Key</button>
                     </form>
                 </div>
             </div>
