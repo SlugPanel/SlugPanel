@@ -11,7 +11,7 @@ export default function AccountGenerator() {
 
 
     const generateRegistrationKey = async (formData) => {
-        const response = await fetch('http://localhost:8080/generate', {
+        const response = await fetch('https://slug-panel-api.onrender.com/generate', {
             method: 'POST',
             headers: {
                 'Content-Type':'application/json'

@@ -2,11 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-const userSchema = require('./src/SlugSchemas/SlugSchemas')
-const divisionSchema = require('./src/SlugSchemas/DivisionSchemas/DivisionSchema')
-const subDivisionSchema = require('./src/SlugSchemas/DivisionSchemas/SubDivisionSchema')
-const teamSchema = require('./src/SlugSchemas/DivisionSchemas/TeamSchema')
-const divisionMemberSchema = require('./src/SlugSchemas/DivisionSchemas/DivisionMemberSchema')
+const userSchema = require('../src/SlugSchemas/SlugSchemas')
+const divisionSchema = require('../src/SlugSchemas/DivisionSchemas/DivisionSchema')
+const subDivisionSchema = require('../src/SlugSchemas/DivisionSchemas/SubDivisionSchema')
+const teamSchema = require('../src/SlugSchemas/DivisionSchemas/TeamSchema')
+const divisionMemberSchema = require('../src/SlugSchemas/DivisionSchemas/DivisionMemberSchema')
 let CryptoJS = require('crypto-js')
 
 const app = express();
