@@ -12,6 +12,9 @@ let CryptoJS = require('crypto-js')
 const PORT = process.env.PORT || 8080;
 
 const app = express();
+app.use(cors({
+    origin: "https://slug-panel.onrender.com"
+}));
 mongoose.set("debug")
 
 const usar_db = mongoose.createConnection("mongodb://usarAdmin:poopusar@slug-db:27017/usarAdmin?authSource=admin");
@@ -35,8 +38,6 @@ function decryptUserRegistrationKey(key) {
     const originalText = bytes.toString(CryptoJS.enc.Utf8)
     return originalText
 }
-
-app.use(cors());
 
 app.post('/login', bodyParser.json(), async (req, res) => {
     const user = req.body.username
