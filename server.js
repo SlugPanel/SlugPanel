@@ -6,12 +6,20 @@ const {json} = require("express");
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const userSchema = require('./src/SlugSchemas/SlugSchemas')
+const divisionSchema = require('./src/SlugSchemas/DivisionSchemas/DivisionSchema')
+const subDivisionSchema = require('./src/SlugSchemas/DivisionSchemas/SubDivisionSchema')
+const teamSchema = require('./src/SlugSchemas/DivisionSchemas/TeamSchema')
+const divisionMemberSchema = require('./src/SlugSchemas/DivisionSchemas/DivisionMemberSchema')
 let CryptoJS = require('crypto-js')
 
-const user_db = mongoose.createConnection("mongodb+srv://usar:i0dZ59pvJ5aFM190@slug-panel.b8jgn4x.mongodb.net/UsarData?retryWrites=true&w=majority")
+const usar_db = mongoose.createConnection("mongodb+srv://usar:i0dZ59pvJ5aFM190@slug-panel.b8jgn4x.mongodb.net/UsarData?retryWrites=true&w=majority")
 
 
-const User = user_db.model('User', userSchema)
+const User = usar_db.model('User', userSchema)
+const Division = usar_db.model('Division', divisionSchema)
+const SubDivision = usar_db.model('SubDivision', subDivisionSchema)
+const Team = usar_db.model('Team', teamSchema)
+const DivisionMember = usar_db.model('Division_Member', divisionMemberSchema)
 
 
 function generateUserRegistrationKey(username, discord_id, rank, authentication_level) {
@@ -55,37 +63,93 @@ app.post('/generate', bodyParser.json(), async function (req, res) {
     }
 })
 
-app.use('/orbat', (req, res) => {
-    res.send({
-        'Headquarters': [
-             {
-                name: 'John Doe',
-                rank: 'Sergeant',
-                role: 'Rifleman',
-                status: 'Active',
-            },
-            {
-                name: 'Jane Doe',
-                rank: 'Sergeant',
-                role: 'Rifleman',
-                status: 'Active',
-            }
-            ],
-        '1st Infantry Division': [
-            {
-                name: 'John Doe',
-                rank: 'Sergeant',
-                role: 'Rifleman',
-                status: 'Active',
-            },
-            {
-                name: 'Jane Doe',
-                rank: 'Sergeant',
-                role: 'Rifleman',
-                status: 'Active',
-            }
-        ]
-    })
+app.post('/register', bodyParser.json(), async function (req, res) {
+    let key = req.body.regKey
+    let pw = CryptoJS.SHA256(req.body.password).toString()
+    let decryptedKey = decryptUserRegistrationKey(key).split('/')
+    let exists = await User.find({regKey: key}, function(err, docs) {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log('Result: ', docs)
+            console.log(pw)
+        }
+    }).clone()
+    if (!exists) {
+        res.send({user: null})
+    } else {
+        res.send(JSON.stringify(exists))
+    }
+
+    await User.findOneAndUpdate({regKey: key}, { is_registered: true, password: pw, authentication_level: decryptedKey[decryptedKey.length - 1]})
 })
 
-app.listen(8080, () => console.log('API is running on http://localhost:8080/login'));
+app.post('/createDivision', bodyParser.json(),  async function (req, res) {
+    let div_name = req.body.division_name
+    let div_id = req.body.division_id
+    let exists = await Division.findOne({division_name: div_name}, function (err, docs) {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log(docs)
+        }
+    }).clone()
+    let idexists = await Division.findOne({division_id: div_id}, function (err, docs) {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log(docs)
+        }
+    }).clone()
+    if (!exists || !idexists) {
+        const newDivision = new Division({
+            division_name: div_name,
+            division_id: div_id
+        })
+        newDivision.save()
+            .then(() => console.log('Division ' + div_name + ' has been added to the db'))
+        res.send(JSON.stringify(newDivision))
+    } else {
+        res.send({errorcode: 420})
+    }
+})
+
+app.post('/createSubDivision/:divid', bodyParser.json(), async function (req, res) {
+    const division = req.params['divid']
+    const sub_name = req.body.subdivision_name
+    const sub_id = req.body.subdivision_id
+    let exists = await Division.findOne({division_id: division}, function (err, docs) {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log(docs)
+        }
+    }).clone()
+    if (exists) {
+        let subdivid_exists = await Division.findOne({
+            division_id: division,
+            subdivisions: {
+                $elemMatch: {subdivision_id: sub_id}
+            }
+        })
+        let subdiv_exists = await Division.findOne({
+            division_id: division,
+            subdivisions: {
+                $elemMatch: {subdivision_name: sub_name}
+            }
+        })
+        if (!subdivid_exists || !subdiv_exists) {
+            const subDiv = new SubDivision({
+                subdivision_name: sub_name,
+                subdivision_id: sub_id,
+            })
+            await Division.findOneAndUpdate({division_id: division}, { $push: {subdivisions: subDiv}})
+            console.log('subdivision ' + sub_name + ' added to: ' + exists.division_name)
+            res.send(JSON.stringify(subDiv))
+        } else {
+            res.send({division:'exists'})
+        }
+    }
+})
+
+app.listen(8080, () => console.log('API is running on http://localhost:8080'));

@@ -30,6 +30,7 @@ const administrationSchema = new mongoose.Schema({
 
 const userSchema = new mongoose.Schema({
     username: String,
+    password: {type: String, default: null},
     discord_id: Number,
     rank: String,
     regKey: String,
@@ -37,7 +38,7 @@ const userSchema = new mongoose.Schema({
     awards: {type: Array, default: ["National Defense Service Medal"]},
     isAdmin: {type: Boolean, default: false},
     admin_level: {type: Number, default: 0},
-    authentication_level: String,
+    authentication_level: {type: String, default: null},
     division: {_id: false, type: divisionSchema, default: () => ({})},
     court_data: {_id: false, type: courtSchema, default: () => ({})},
     administration_data: {_id: false, type: administrationSchema, default: () => ({})},

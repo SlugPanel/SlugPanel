@@ -1,24 +1,11 @@
 import React, {useState} from 'react';
-import {json} from "react-router-dom";
 import './AccountGenerator.css'
 
-/*async function generateRegistrationKey(formData) {
-    return fetch('http://localhost:8080/generate', {
-        method: 'POST',
-        headers: {
-            'Content-Type':'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
-        .then (data => data.json())
-}*/
-
 export default function AccountGenerator() {
-    const [user, setUser] = useState();
     const [username, setUsername] = useState();
     const [discord_id, setDiscordId] = useState();
     const [rank, setRank] = useState();
-    const [authentication_level, setAuthenticationLevel] = useState("Administration");
+    const [authentication_level, setAuthenticationLevel] = useState("Division Staff");
     const [registration_key, setRegistrationKey] = useState();
     const [generated, setGenerated] = useState()
 
@@ -32,7 +19,6 @@ export default function AccountGenerator() {
             body: JSON.stringify(formData)
         }).then((res) => res.json());
         setRegistrationKey(response)
-        setGenerated(true)
     }
 
 
@@ -45,6 +31,7 @@ export default function AccountGenerator() {
             authentication_level
         });
         setRegistrationKey(registrationKey)
+        setGenerated(true)
     }
 
     const reset = async function() {
@@ -60,7 +47,7 @@ export default function AccountGenerator() {
                         <input type={"text"} placeholder={"Username"} onChange={e => setUsername(e.target.value)}/>
                         <input type={"number"} placeholder={"Discord ID"} onChange={e => setDiscordId(e.target.value)}/>
                         <input type={"text"} placeholder={"Rank"} onChange={e => setRank(e.target.value)}/>
-                        <select onChange={e => setAuthenticationLevel(e.target.value)}>
+                        <select defaultValue={"Division Staff"} onChange={e => setAuthenticationLevel(e.target.value)}>
                             <option value={"Administration"}>Administration</option>
                             <option value={"Headquarters"}>Headquarters</option>
                             <option value={"Division Staff"}>Division Staff</option>
