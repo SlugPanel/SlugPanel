@@ -13,7 +13,13 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 
-const usar_db = mongoose.createConnection("mongodb://usarAdmin:poopusar@slug-db:27017/UsarData", {auth: {authdb: 'admin'}})
+const usar_db = mongoose.createConnection("mongodb://slug-db:27017/UsarData", {
+    auth: {
+        username: "usarAdmin",
+        password: "poopusar",
+        authdb: "admin"
+    },
+});
 
 
 const User = usar_db.model('User', userSchema)
