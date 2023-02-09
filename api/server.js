@@ -14,11 +14,9 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(cors({
     origin: "https://slug-panel.onrender.com",
-    headers: {
-        "Access-Control-Allow-Origin": "https://slug-panel.onrender.com",
-        "Access-Control-Allow-Credentials": true
-    },
-}));
+    headersL : ["Content-Type"],
+    credentials: true,
+}))
 mongoose.set("debug")
 
 const usar_db = mongoose.createConnection("mongodb://usarAdmin:poopusar@slug-db:27017/usarAdmin?authSource=admin");
