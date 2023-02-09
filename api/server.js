@@ -12,15 +12,9 @@ let CryptoJS = require('crypto-js')
 const PORT = process.env.PORT || 8080;
 
 const app = express();
-mongoose.set("debug", true)
+mongoose.set("debug")
 
-const usar_db = mongoose.createConnection("mongodb://slug-db:27017/UsarData", {
-    auth: {
-        authdb: "admin",
-        username: "usarAdmin",
-        password: "poopusar",
-    },
-});
+const usar_db = mongoose.createConnection("mongodb://usarAdmin:poopusar@slug-db:27017/usarAdmin?authSource=admin");
 
 
 const User = usar_db.model('User', userSchema)
