@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 
-const usar_db = mongoose.createConnection("mongodb+srv://usar:poopusar@usardata.tca6czu.mongodb.net/UsarData?retryWrites=true&w=majority")
+const usar_db = mongoose.createConnection("mongodb://usarAdmin:poopusar@slug-db:27017/UsarData")
     .then(() => console.log("connected"))
 
 
