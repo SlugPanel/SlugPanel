@@ -9,7 +9,7 @@ function Register() {
     const [password, setPassword] = useState();
 
     const registerUser = async function(registration_key) {
-        const userdata = await fetch('https://slug-panel-api.onrender.com/register:8080',{
+        const userdata = await fetch('https://slug-panel-api.onrender.com/register',{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

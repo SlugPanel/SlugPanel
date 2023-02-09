@@ -3,10 +3,11 @@ import './Login.css';
 import PropTypes from "prop-types";
 
 async function loginUser(credentials) {
-    return fetch('https://slug-panel-api.onrender.com/login:8080', {
+    return fetch('https://slug-panel-api.onrender.com/login', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': 'true'
         },
         body: JSON.stringify(credentials)
     })
