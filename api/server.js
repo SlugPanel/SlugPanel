@@ -17,7 +17,6 @@ const usar_db = mongoose.createConnection("mongodb://slug-db:27017/UsarData", {
     auth: {
         username: "usarAdmin",
         password: "poopusar",
-        authdb: "admin"
     },
 });
 
