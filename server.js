@@ -1,8 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const app = express();
-const { MongoClient, ServerApiVersion, Collection, Int32} = require('mongodb')
-const {json} = require("express");
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const userSchema = require('./src/SlugSchemas/SlugSchemas')
@@ -11,6 +8,8 @@ const subDivisionSchema = require('./src/SlugSchemas/DivisionSchemas/SubDivision
 const teamSchema = require('./src/SlugSchemas/DivisionSchemas/TeamSchema')
 const divisionMemberSchema = require('./src/SlugSchemas/DivisionSchemas/DivisionMemberSchema')
 let CryptoJS = require('crypto-js')
+
+const app = express();
 
 const usar_db = mongoose.createConnection("mongodb+srv://usar:i0dZ59pvJ5aFM190@slug-panel.b8jgn4x.mongodb.net/UsarData?retryWrites=true&w=majority")
 
@@ -36,7 +35,7 @@ function decryptUserRegistrationKey(key) {
 
 app.use(cors());
 
-app.use('/login', bodyParser.json(), async (req, res) => {
+app.post('/login', bodyParser.json(), async (req, res) => {
     const user = req.body.username
     let pw = req.body.password
     pw = CryptoJS.SHA256(pw)
