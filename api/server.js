@@ -169,4 +169,4 @@ app.post('/createSubDivision/:divid', bodyParser.json(), async function (req, re
     }
 })
 
-app.listen(PORT, () => console.log('API is running"));
+app.listen(PORT, () => console.log('API is running'));
