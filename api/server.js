@@ -13,7 +13,8 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 app.use(cors({
-    origin: "https://slug-panel.onrender.com"
+    origin: "https://slug-panel.onrender.com",
+    credentials: true
 }));
 mongoose.set("debug")
 
@@ -196,4 +197,4 @@ app.post('/createSubDivision/:divid', bodyParser.json(), async function (req, re
     }
 })
 
-app.listen(PORT, () => console.log('API is running'));
+app.listen(PORT, () => console.log('API is running on ' + PORT));
