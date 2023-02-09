@@ -169,4 +169,4 @@ app.post('/createSubDivision/:divid', bodyParser.json(), async function (req, re
     }
 })
 
-app.listen(8080, () => console.log('API is running on http://localhost:8080'));
+app.listen(PORT, () => console.log('API is running"));
