@@ -36,10 +36,26 @@ function decryptUserRegistrationKey(key) {
 
 app.use(cors());
 
-app.use('/login', (req, res) => {
-    res.send({
-        token: 'test123',
-    });
+app.use('/login', bodyParser.json(), async (req, res) => {
+    const user = req.body.username
+    let pw = req.body.password
+    pw = CryptoJS.SHA256(pw)
+    let exists = await User.findOne({username: user})
+    if (exists) {
+        if (pw.toString() === exists['password']) {
+            res.send({
+                token: 'test123'
+            })
+        } else {
+            res.send({
+                error: 'passwordNotFound'
+            })
+        }
+    } else {
+        res.send({
+            error: 'userNotFound'
+        })
+    }
 });
 
 app.post('/generate', bodyParser.json(), async function (req, res) {
