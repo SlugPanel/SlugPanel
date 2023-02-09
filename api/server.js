@@ -13,14 +13,7 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 
-const usar_db = mongoose.createConnection("mongodb+srv://"+process.env.username+":"+process.env.password+"@slug-panel.b8jgn4x.mongodb.net/UsarData", {
-    authSource: "admin",
-    user: "usar",
-    pass: "poopusar",
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    }
-);
+const usar_db = mongoose.createConnection("mongodb+srv://usar:poopusar@usardata.tca6czu.mongodb.net/UsarData?retryWrites=true&w=majority")
 
 
 const User = usar_db.model('User', userSchema)
