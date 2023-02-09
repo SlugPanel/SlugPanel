@@ -3,7 +3,7 @@ import './Login.css';
 import PropTypes from "prop-types";
 
 async function loginUser(credentials) {
-    return fetch('https://slug-panel-api.onrender.com/login', {
+    return fetch('https://slug-panel-api.onrender.com/login:8080', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
