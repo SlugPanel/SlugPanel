@@ -39,11 +39,12 @@ function decryptUserRegistrationKey(key) {
     return originalText
 }
 
-app.post('/login', bodyParser.json(), async (req, res) => {
+app.post('/login', bodyParser.json(), async (req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
     const user = req.body.username
     let pw = req.body.password
     pw = CryptoJS.SHA256(pw)
@@ -65,11 +66,12 @@ app.post('/login', bodyParser.json(), async (req, res) => {
     }
 });
 
-app.post('/generate', bodyParser.json(), async function (req, res) {
+app.post('/generate', bodyParser.json(), async function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
     let username = req.body.username
     let discord_id = req.body.discord_id
     let rank = req.body.rank
@@ -90,11 +92,12 @@ app.post('/generate', bodyParser.json(), async function (req, res) {
     }
 })
 
-app.post('/register', bodyParser.json(), async function (req, res) {
+app.post('/register', bodyParser.json(), async function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
     let key = req.body.regKey
     let pw = CryptoJS.SHA256(req.body.password).toString()
     let decryptedKey = decryptUserRegistrationKey(key).split('/')
@@ -115,11 +118,12 @@ app.post('/register', bodyParser.json(), async function (req, res) {
     await User.findOneAndUpdate({regKey: key}, { is_registered: true, password: pw, authentication_level: decryptedKey[decryptedKey.length - 1]})
 })
 
-app.post('/createDivision', bodyParser.json(),  async function (req, res) {
+app.post('/createDivision', bodyParser.json(),  async function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
     let div_name = req.body.division_name
     let div_id = req.body.division_id
     let exists = await Division.findOne({division_name: div_name}, function (err, docs) {
@@ -149,11 +153,12 @@ app.post('/createDivision', bodyParser.json(),  async function (req, res) {
     }
 })
 
-app.post('/createSubDivision/:divid', bodyParser.json(), async function (req, res) {
+app.post('/createSubDivision/:divid', bodyParser.json(), async function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
     const division = req.params['divid']
     const sub_name = req.body.subdivision_name
     const sub_id = req.body.subdivision_id
