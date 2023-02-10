@@ -26,7 +26,7 @@ export default function Login({setToken, toggleRegister}){
             password
         });
         setToken(response['token']);
-        setUser(response['user'])
+        setUser(response['user']);
     }
     return (
         <div className="login-wrapper">
