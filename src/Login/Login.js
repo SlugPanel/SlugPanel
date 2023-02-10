@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import './Login.css';
 import PropTypes from "prop-types";
+import '../Register/Register'
 
 async function loginUser(credentials) {
     return fetch('https://slugga-api.onrender.com/login', {
@@ -13,9 +14,10 @@ async function loginUser(credentials) {
         .then(data => data.json())
 }
 
-export default function Login({setToken}){
+export default function Login({setToken, toggleRegister}){
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
+
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -25,7 +27,6 @@ export default function Login({setToken}){
         });
         setToken(token);
     }
-
     return (
         <div className="login-wrapper">
             <h1>SlugPanel</h1>
@@ -34,9 +35,12 @@ export default function Login({setToken}){
                 <input type={"password"} onChange={e => setPassword(e.target.value)} placeholder={"Password"} />
                 <button type={"submit"}>Login</button>
             </form>
+            <button type={"submit"} onClick={toggleRegister}>Register</button>
         </div>
     );
 }
+
+
 
 Login.propTypes = {
     setToken: PropTypes.func.isRequired

@@ -52,3 +52,16 @@
     text-align: center;
     outline: none;
 }
+
+.login-wrapper button {
+    margin-top: 1rem;
+    background: #26ef26;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    width: 200px;
+    cursor: pointer;
+}
