@@ -15,9 +15,10 @@ async function loginUser(credentials) {
         .then(data => data.json())
 }
 
-export default function Login({setToken, toggleRegister}){
+export default function Login({toggleRegister}){
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
+    const [loggedIn, setLoggedIn] = useState(false);
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -26,8 +27,8 @@ export default function Login({setToken, toggleRegister}){
             password
         });
         sessionStorage.setItem('token', response['token'])
-        setToken(sessionStorage.getItem('token'))
         sessionStorage.setItem('user', response['user'])
+        setLoggedIn(true)
     }
     return (
         <div className="login-wrapper">
