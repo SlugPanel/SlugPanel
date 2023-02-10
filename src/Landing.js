@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import Register from "./Register/Register";
 import Login from "./Login/Login";
 import useToken from "./useToken";
-import useUser from "./useUser";
 
 export default function Landing() {
     const [register, setRegister] = useState(false)

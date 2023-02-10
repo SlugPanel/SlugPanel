@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './Login.css';
 import PropTypes from "prop-types";
 import '../Register/Register'
@@ -25,7 +25,8 @@ export default function Login({setToken, toggleRegister}){
             username,
             password
         });
-        setToken(response['token'].toString());
+        console.log(response)
+        setToken(response['token']);
         sessionStorage.setItem('user', response['user'])
     }
     return (
