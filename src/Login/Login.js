@@ -25,7 +25,7 @@ export default function Login({setToken, toggleRegister}){
             username,
             password
         });
-        setToken(JSON.stringify(response['token']));
+        setToken((response['token']));
         sessionStorage.setItem('user', response['user'])
     }
     return (
