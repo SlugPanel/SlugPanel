@@ -17,14 +17,16 @@ async function loginUser(credentials) {
 export default function Login({setToken, toggleRegister}){
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
+    const [user, setUser] = useState();
 
     const handleSubmit = async e => {
         e.preventDefault();
-        const token = await loginUser({
+        const response = await loginUser({
             username,
             password
         });
-        setToken(token);
+        setToken(response['token']);
+        setUser(response['user'])
     }
     return (
         <div className="login-wrapper">
