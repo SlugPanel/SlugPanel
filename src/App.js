@@ -15,7 +15,7 @@ function App() {
     }, [])
 
     if(!token) {
-        return <Landing setToken={setToken}/>
+        return <Landing />
     }
 
     return (
