@@ -12,7 +12,7 @@ export default function Landing() {
     }
     if(!token) {
         return (
-            register ? <Register/> : <Login setToken={setToken} toggleRegister={toggleRegister}/>
+            register ? <Register/> : <Login setToken={setToken} toggleRegister={toggleRegister} />
         )
     }
 }
