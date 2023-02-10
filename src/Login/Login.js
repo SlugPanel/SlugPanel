@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './Login.css';
 import PropTypes from "prop-types";
 import '../Register/Register'
+import useUser from "../useUser";
 
 async function loginUser(credentials) {
     return fetch('https://slugga-api.onrender.com/login', {
@@ -17,7 +18,7 @@ async function loginUser(credentials) {
 export default function Login({setToken, toggleRegister}){
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
-    const [user, setUser] = useState();
+    const { user, setUser } = useUser();
 
     const handleSubmit = async e => {
         e.preventDefault();
