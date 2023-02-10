@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './Login.css';
 import PropTypes from "prop-types";
 import '../Register/Register'
-import useUser from "../useUser";
+
 
 async function loginUser(credentials) {
     return fetch('https://slugga-api.onrender.com/login', {
@@ -15,7 +15,7 @@ async function loginUser(credentials) {
         .then(data => data.json())
 }
 
-export default function Login({setToken, toggleRegister, setUser}){
+export default function Login({setToken, toggleRegister}){
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
 
