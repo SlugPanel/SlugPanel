@@ -3,9 +3,8 @@ import Register from "./Register/Register";
 import Login from "./Login/Login";
 import useToken from "./useToken";
 
-export default function Landing() {
+export default function Landing({setToken}) {
     const [register, setRegister] = useState(false)
-    const {token, setToken} = useToken()
 
     function toggleRegister() {
         setRegister(!register)
