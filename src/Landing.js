@@ -5,12 +5,14 @@ import useToken from "./useToken";
 
 export default function Landing({setToken}) {
     const [register, setRegister] = useState(false)
+    const token = useToken()
 
     function toggleRegister() {
         setRegister(!register)
     }
-
-    return(
-        register ?  <Register /> : <Login setToken={setToken} toggleRegister={toggleRegister} />
-    )
+    if(!token) {
+        return (
+            register ? <Register/> : <Login setToken={setToken} toggleRegister={toggleRegister}/>
+        )
+    }
 }
