@@ -25,7 +25,7 @@ export default function Login({setToken, toggleRegister}){
             username,
             password
         });
-        setToken(response['token']);
+        setToken(response['token'].toString());
         setUser(response['user']);
     }
     return (
