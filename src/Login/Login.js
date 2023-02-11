@@ -16,7 +16,7 @@ async function loginUser(credentials) {
         .then(data => data.json())
 }
 
-export default function Login({toggleRegister, setToken}){
+export default function Login({toggleRegister}){
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
     const [loggedIn, setLoggedIn] = useState(false);
@@ -27,10 +27,9 @@ export default function Login({toggleRegister, setToken}){
             username,
             password
         });
-        sessionStorage.setItem('user', response['user'])
-        sessionStorage.setItem('token', response['token'])
+        sessionStorage.setItem('user', JSON.parse(response['user']))
+        sessionStorage.setItem('token', JSON.parse(response['token']))
         setLoggedIn(true)
-        setToken(sessionStorage.getItem('token'))
     }
     if (!loggedIn) {
         return (
