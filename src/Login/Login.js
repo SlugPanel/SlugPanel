@@ -30,21 +30,25 @@ export default function Login({toggleRegister}){
         sessionStorage.setItem('token', response['token'])
         sessionStorage.setItem('user', response['user'])
         setLoggedIn(true)
-        return (
-            <Navigate replace to={'/'} />
-    );
     }
-    return (
-        <div className="login-wrapper">
-            <h1>SlugPanel</h1>
-            <form className="login-form" onSubmit={handleSubmit}>
-                <input type={"text"} onChange={e => setUserName(e.target.value)} placeholder={"Username"} />
-                <input type={"password"} onChange={e => setPassword(e.target.value)} placeholder={"Password"} />
-                <button type={"submit"}>Login</button>
-            </form>
-            <button type={"submit"} onClick={toggleRegister}>Register</button>
-        </div>
-    );
+    if (!loggedIn) {
+        return (
+            <div className="login-wrapper">
+                <h1>SlugPanel</h1>
+                <form className="login-form" onSubmit={handleSubmit}>
+                    <input type={"text"} onChange={e => setUserName(e.target.value)} placeholder={"Username"}/>
+                    <input type={"password"} onChange={e => setPassword(e.target.value)} placeholder={"Password"}/>
+                    <button type={"submit"}>Login</button>
+                </form>
+                <button type={"submit"} onClick={toggleRegister}>Register</button>
+            </div>
+        );
+    } else {
+        return (
+            <Navigate to='/' />
+        )
+    }
+
 }
 
 
