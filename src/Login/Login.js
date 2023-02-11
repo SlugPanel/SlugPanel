@@ -29,7 +29,7 @@ export default function Login({toggleRegister, setToken}){
         });
         sessionStorage.setItem('user', response['user'])
         setLoggedIn(true)
-        setToken(response['token'])
+        setToken(sessionStorage.getItem('token'))
     }
     if (!loggedIn) {
         return (
@@ -45,7 +45,7 @@ export default function Login({toggleRegister, setToken}){
         );
     } else {
         return (
-            <Navigate to='/' />
+            <Navigate replace to={'/'} />
         )
     }
 
