@@ -5,6 +5,7 @@ import './App.css'
 import AccountGenerator from "./Admin/AccountGenerator/AccountGenerator";
 import Register from "./Register/Register";
 import Landing from "./Landing";
+import useToken from "./useToken";
 
 //todo figure out how to return to root component on login
 
@@ -13,8 +14,10 @@ function App() {
         document.title="Usar Panel v1.0"
     }, [])
 
+    const {token, setToken} = useToken()
+
     if(!token) {
-        return <Landing />
+        return <Landing token={token} setToken={setToken} />
     }
 
     return (
