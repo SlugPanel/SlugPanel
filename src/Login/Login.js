@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './Login.css';
 import PropTypes from "prop-types";
 import '../Register/Register'
+import {Navigate} from "react-router-dom";
 
 
 async function loginUser(credentials) {
@@ -29,6 +30,9 @@ export default function Login({toggleRegister}){
         sessionStorage.setItem('token', response['token'])
         sessionStorage.setItem('user', response['user'])
         setLoggedIn(true)
+        return (
+            <Navigate replace to={'/'} />
+    );
     }
     return (
         <div className="login-wrapper">

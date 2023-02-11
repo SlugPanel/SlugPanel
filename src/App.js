@@ -1,15 +1,14 @@
 import React, {useEffect} from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./Dashboard/Dashboard";
-import Login from "./Login/Login";
-import useToken from "./useToken";
 import './App.css'
 import AccountGenerator from "./Admin/AccountGenerator/AccountGenerator";
 import Register from "./Register/Register";
 import Landing from "./Landing";
 
+//todo figure out how to return to root component on login
+
 function App() {
-    const {token, setToken} = useToken();
     useEffect(() => {
         document.title="Usar Panel v1.0"
     }, [])
