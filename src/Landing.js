@@ -11,7 +11,7 @@ export default function Landing() {
     }
     if(!register) {
         return (
-            register ? <Register/> : <Login toggleRegister={toggleRegister} setToken={setToken} />
+            register ? <Register/> : <Login toggleRegister={toggleRegister} />
         )
     } else {
         return (

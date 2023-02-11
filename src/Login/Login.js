@@ -30,6 +30,7 @@ export default function Login({toggleRegister}){
         sessionStorage.setItem('user', JSON.parse(response['user']))
         sessionStorage.setItem('token', JSON.parse(response['token']))
         setLoggedIn(true)
+        window.location.reload(true)
     }
     if (!loggedIn) {
         return (
