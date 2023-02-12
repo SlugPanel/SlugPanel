@@ -13,7 +13,7 @@ export default function Landing() {
 
     if(!register) {
         return (
-            register ? <Register/> : <Login toggleRegister={toggleRegister} setLoggedIn={setLoggedIn}/>
+            register ? <Register/> : <Login toggleRegister={toggleRegister} setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
         )
     }
     if (loggedIn) {
