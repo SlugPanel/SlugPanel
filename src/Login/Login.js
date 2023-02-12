@@ -44,6 +44,8 @@ export default function Login({toggleRegister}){
                 <button type={"submit"} onClick={toggleRegister}>Register</button>
             </div>
         );
+    } else {
+       return <Navigate to={'/'}
     }
 }
 

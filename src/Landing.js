@@ -12,11 +12,11 @@ export default function Landing() {
 
     if(!register) {
         return (
-            register ? <Register/> : <Login toggleRegister={toggleRegister} />
+            <Login toggleRegister={toggleRegister} />
         )
     } else {
         return (
-            <Dashboard />
+            <Register />
         )
     }
 }
