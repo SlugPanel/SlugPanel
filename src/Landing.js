@@ -9,6 +9,7 @@ export default function Landing() {
     function toggleRegister() {
         setRegister(!register)
     }
+
     if(!register) {
         return (
             register ? <Register/> : <Login toggleRegister={toggleRegister} />

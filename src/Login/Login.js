@@ -27,7 +27,7 @@ export default function Login({toggleRegister}){
             username,
             password
         });
-        sessionStorage.setItem('user', JSON.stringify(response['user']))
+        sessionStorage.setItem('user', response['user'])
         sessionStorage.setItem('token', JSON.stringify(response['token']))
         setLoggedIn(true)
         window.location.reload(true)
@@ -44,12 +44,6 @@ export default function Login({toggleRegister}){
                 <button type={"submit"} onClick={toggleRegister}>Register</button>
             </div>
         );
-    } else {
-        return (
-            <Navigate replace to={'/'} />
-        )
-    }
-
 }
 
 

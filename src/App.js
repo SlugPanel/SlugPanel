@@ -7,8 +7,6 @@ import Register from "./Register/Register";
 import Landing from "./Landing";
 import useToken from "./useToken";
 
-//todo figure out how to return to root component on login
-
 function App() {
     useEffect(() => {
         document.title="Usar Panel v1.0"
