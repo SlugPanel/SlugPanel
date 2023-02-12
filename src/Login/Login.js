@@ -16,7 +16,7 @@ async function loginUser(credentials) {
         .then(data => data.json())
 }
 
-export default function Login({toggleRegister, setLoggedIn}){
+export default function Login({toggleRegister, setLoggedIn, loggedIn}){
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
 
