@@ -16,9 +16,10 @@ async function loginUser(credentials) {
         .then(data => data.json())
 }
 
-export default function Login({toggleRegister, setLoggedIn, loggedIn}){
+export default function Login({toggleRegister}){
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
+    const [loggedIn, setLoggedIn] = useState(false);
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -43,10 +44,6 @@ export default function Login({toggleRegister, setLoggedIn, loggedIn}){
                 <button type={"submit"} onClick={toggleRegister}>Register</button>
             </div>
         );
-    } else {
-        return (
-            <Navigate replace to={'/'} />
-        )
     }
 }
 

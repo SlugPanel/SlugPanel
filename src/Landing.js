@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
 import Register from "./Register/Register";
 import Login from "./Login/Login";
-import {Navigate} from "react-router-dom";
+import Dashboard from "./Dashboard/Dashboard";
 
 export default function Landing() {
     const [register, setRegister] = useState(false)
-    const [loggedIn, setLoggedIn] = useState(false);
 
     function toggleRegister() {
         setRegister(!register)
@@ -13,10 +12,11 @@ export default function Landing() {
 
     if(!register) {
         return (
-            register ? <Register/> : <Login toggleRegister={toggleRegister} setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
+            register ? <Register/> : <Login toggleRegister={toggleRegister} />
         )
-    }
-    if (loggedIn) {
-        return <Navigate replace to={'/'} />
+    } else {
+        return (
+            <Dashboard />
+        )
     }
 }
