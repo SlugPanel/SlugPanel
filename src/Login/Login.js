@@ -45,7 +45,7 @@ export default function Login({toggleRegister}){
             </div>
         );
     } else {
-       return <Navigate to={'/'}
+        return <Navigate replace to={'/'} />
     }
 }
 
