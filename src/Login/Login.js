@@ -16,10 +16,9 @@ async function loginUser(credentials) {
         .then(data => data.json())
 }
 
-export default function Login({toggleRegister}){
+export default function Login({toggleRegister, setLoggedIn}){
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
-    const [loggedIn, setLoggedIn] = useState(false);
 
     const handleSubmit = async e => {
         e.preventDefault();
