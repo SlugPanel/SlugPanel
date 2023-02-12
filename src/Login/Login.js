@@ -16,7 +16,7 @@ async function loginUser(credentials) {
         .then(data => data.json())
 }
 
-export default function Login({toggleRegister}){
+export default function Login({toggleRegister}) {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
     const [loggedIn, setLoggedIn] = useState(false);
@@ -44,8 +44,8 @@ export default function Login({toggleRegister}){
                 <button type={"submit"} onClick={toggleRegister}>Register</button>
             </div>
         );
+    }
 }
-
 
 
 Login.propTypes = {
