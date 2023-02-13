@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Register.css'
 
 
 
@@ -25,7 +26,6 @@ function Register() {
             regKey: registration_key,
             password: password
         })
-        setUser(user)
         setRegistered(true)
     }
 

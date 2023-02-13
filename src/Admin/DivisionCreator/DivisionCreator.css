@@ -1,17 +1,17 @@
-.registration-wrapper {
+.division-creator-wrapper {
     display: flex;
     justify-content: center;
-    vertical-align: center;
-    height: 90svh;
+    text-align: center;
+    height: 80svh;
 }
 
-.registration-wrapper form {
+.division-creator-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.registration-wrapper input {
+.division-creator-form input {
     margin-top: 1rem;
     padding: 0.5rem 1rem;
     border-radius: 5px;
@@ -24,7 +24,7 @@
     outline: none;
 }
 
-.registration-wrapper button {
+.division-creator-form button {
     margin-top: 1rem;
     background: #26ef26;
     color: #fff;
@@ -35,3 +35,4 @@
     font-weight: 500;
     cursor: pointer;
 }
+

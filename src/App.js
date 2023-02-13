@@ -6,6 +6,7 @@ import AccountGenerator from "./Admin/AccountGenerator/AccountGenerator";
 import Register from "./Register/Register";
 import Landing from "./Landing";
 import useToken from "./useToken";
+import DivisionCreator from "./Admin/DivisionCreator/DivisionCreator";
 
 function App() {
     useEffect(() => {
@@ -26,6 +27,7 @@ function App() {
                   <Route exact path="/" element={<Dashboard />} />
                   <Route exact path="/generate" element={<AccountGenerator />} />
                   <Route exact path='/register' element={<Register />} />
+                  <Route exact path='/createDivision' element={<DivisionCreator />} />
               </Routes>
           </Router>
       </div>
