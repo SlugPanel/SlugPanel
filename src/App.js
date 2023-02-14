@@ -15,6 +15,16 @@ function App() {
 
     const {token, setToken} = useToken()
 
+    useEffect(async () => {
+        await fetch('https://slugga-api.onrender.com/getUsers', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            }
+        })
+            .then(data => data.json())
+    }, [])
+
     if(!token) {
         return <Landing token={token} setToken={setToken} />
     }
